@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-require-imports, @typescript-eslint/no-explicit-any */
 const initSqlJs = require('sql.js/dist/sql-asm.js');
+import { runSeed } from './seed-data';
 
 type SqlJsDatabase = {
   run(sql: string, params?: any[]): void;
@@ -85,6 +86,7 @@ async function initDb(): Promise<SqlJsDatabase> {
   const SQL = await initSqlJs();
   const database = new SQL.Database();
   initSchema(database);
+  runSeed(database);
   return database;
 }
 
